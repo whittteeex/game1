@@ -15,7 +15,7 @@ class Paddle:
         self.height = 10
         self.speed = 7
         self.color = (200, 200, 200)
-        
+
         self.width = self.original_width
         self.power_up_timers = {
             'grow': 0,
@@ -52,12 +52,12 @@ class Paddle:
             self.rect.left = 0
         if self.rect.right > self.screen_width:
             self.rect.right = self.screen_width
-            
+
         self._update_power_ups()
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
-        
+
     def activate_power_up(self, type):
         duration = 600
         if type == 'grow':
@@ -73,7 +73,7 @@ class Paddle:
         elif type == 'glue':
             self.has_glue = True
             self.power_up_timers['glue'] = duration
-            
+
     def _update_power_ups(self):
         if self.power_up_timers['grow'] > 0:
             self.power_up_timers['grow'] -= 1
@@ -100,12 +100,12 @@ class Ball:
         self.radius = 10
         self.color = (200, 200, 200)
         self.rect = pygame.Rect(0, 0, self.radius * 2, self.radius * 2)
-        
+
         self.is_glued = False
         self.is_slowed = False
         self.slow_timer = 0
         self.base_speed = 6
-        
+
         self.reset()
 
     def reset(self):
@@ -150,15 +150,15 @@ class Ball:
                 self.is_glued = True
             self.speed_y *= -1
             collision_object = 'paddle'
-        
+
         if self.rect.top > self.screen_height:
             return 'lost', None
-        
+
         return 'playing', collision_object
 
     def draw(self, screen):
         pygame.draw.ellipse(screen, self.color, self.rect)
-        
+
     def activate_power_up(self, type):
         if type == 'slow' and not self.is_slowed:
             self.speed_x /= 2
@@ -188,7 +188,7 @@ class PowerUp:
         'fast':       {'color': (255, 100, 0),   'char': 'F', 'message': 'SPEED UP'},
         'extra_life': {'color': (255, 255, 255), 'char': '+', 'message': 'EXTRA LIFE!'}
     }
-    
+
     def __init__(self, x, y, type):
         self.width = 30
         self.height = 15
@@ -283,3 +283,5 @@ class Firework:
     def is_dead(self):
         return self.exploded and not self.particles
 # !!! END PHASE: VISUAL EFFECTS !!!
+
+
